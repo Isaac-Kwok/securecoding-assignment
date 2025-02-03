@@ -1,0 +1,13 @@
+
+MySQL database Setup:
+1)Go to your MYSQL Workbench and press file > open sql script and choose the sql dump file provided in the folder.
+2)Afterwards press the run button(the lightning button).
+
+Code files Setup:
+1)Under the model folder change the password for databaseConfig.js file
+2)Run npm install for both the frontend and backend project
+3)Run both the frontend and backend server.js >node server.js
+
+
+In Browser:
+1)Open localhost:3001/loginPage.html
