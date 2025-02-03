@@ -188,10 +188,16 @@
 			return false;
 		})
 
-		$('#searchbutton').click(function () {
-			var search = $('#search').val()
-			window.location.assign("http://localhost:3001/searchlistings.html?search=" + `${search}`)
-		})
+        $('#searchbutton').click(function () {
+            var search = $('#search').val().trim();
+
+            if (!search.match(/^[a-zA-Z0-9\s]+$/)) {
+                alert("Invalid search input!");
+                return;
+            }
+
+            window.location.assign("http://localhost:3001/searchlistings.html?search=" + encodeURIComponent(search));
+        });
 	})
 
 </script>
