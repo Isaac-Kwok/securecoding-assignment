@@ -1,0 +1,27 @@
+{
+  "name": "securecoding-assignment",
+  "version": "1.0.0",
+  "description": "Secure Coding Assignment: Ethical Hacking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"nodemon BackEnd/server.js\" \"nodemon FrontEnd/server.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Isaac-Kwok/securecoding-assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Isaac-Kwok/securecoding-assignment/issues"
+  },
+  "homepage": "https://github.com/Isaac-Kwok/securecoding-assignment#readme",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
