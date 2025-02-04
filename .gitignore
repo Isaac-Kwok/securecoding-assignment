@@ -20,7 +20,7 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
-# Compiled Object files
-node_modules
 # Dependency directories
-databaseConfig.js
+node_modules
+# Environment variables
+.env
