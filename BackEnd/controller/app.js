@@ -9,6 +9,8 @@ var offers = require('../model/offer');
 var likes = require('../model/likes');
 var images = require('../model/images')
 var verifyToken = require('../auth/verifyToken.js');
+var fs = require('fs');
+const fileType = require('file-type');
 
 var path = require("path");
 var multer = require('multer')
@@ -323,22 +325,64 @@ let storage = multer.diskStorage({
 	}
 });
 
-let upload = multer({
-	storage: storage, limits: { fileSize: 5 * 1024 * 1024 }
-});//limits check if he file size is equal to or below 5mb
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    fileFilter: function (req, file, cb) {
+        let allowedTypes = /jpeg|jpg|webp|png/;
+        let extName = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        let mimeType = allowedTypes.test(file.mimetype);
 
-
-app.post('/images/:fk_product_id/', upload.single('myfile'), function (req, res) {
-	var fk_product_id = req.params.fk_product_id;
-	var name = req.filename;
-	images.uploadImage(name,fk_product_id, function (err, result) {
-		if (err) {
-			res.status(500);
-			res.json({success:false});
-		} else {
-			res.status(201);
-			res.json({success:true});
-		}
-	});
+        if (extName && mimeType) {
+            return cb(null, true);
+        } else {
+            return cb(new Error('Only images are allowed! (jpeg, jpg, webp, png)'), false);
+        }
+    }
 });
+
+
+app.post('/images/:fk_product_id/', (req, res) => {
+    upload.single('myfile')(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            // Multer errors (file too large, etc.)
+            return res.status(400).json({ success: false, message: err.message });
+        } else if (err) {
+            // Custom errors (e.g., invalid file type)
+            return res.status(400).json({ success: false, message: err.message });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'No file uploaded' });
+        }
+
+        try {
+            const fk_product_id = req.params.fk_product_id;
+            const filePath = req.file.path;
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            // Detect the actual MIME type of the file
+            const fileBuffer = fs.readFileSync(filePath);
+			const detectedType = await fileType.fromBuffer(fileBuffer);
+
+            if (!detectedType || !allowedTypes.includes(detectedType.mime)) {
+                fs.unlinkSync(filePath); // Remove invalid file
+                return res.status(400).json({ success: false, message: 'Invalid file type! Only JPG, JPEG, PNG, and WEBP are allowed.' });
+            }
+
+            const name = req.file.filename;
+
+            images.uploadImage(name, fk_product_id, function (err, result) {
+                if (err) {
+                    return res.status(500).json({ success: false, message: 'Error saving image' });
+                }
+                res.status(201).json({ success: true, message: 'Image uploaded successfully' });
+            });
+
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+        }
+    });
+});
+
 module.exports = app;

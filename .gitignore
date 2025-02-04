@@ -22,3 +22,5 @@ rad.json
 TestResults.xml
 # Compiled Object files
 node_modules
+# Dependency directories
+databaseConfig.js

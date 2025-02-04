@@ -1,0 +1,359 @@
+1
+00:00:07,440 --> 00:00:08,680
+There's a kind of nuclear
+
+2
+00:00:08,680 --> 00:00:10,200
+power you may not be familiar
+
+3
+00:00:10,200 --> 00:00:12,600
+with, similar to atoms
+
+4
+00:00:12,600 --> 00:00:13,600
+colliding in the sun.
+
+5
+00:00:15,600 --> 00:00:17,680
+That's nuclear fusion, and it
+
+6
+00:00:17,680 --> 00:00:19,360
+could revolutionize how clean
+
+7
+00:00:19,360 --> 00:00:20,720
+energy is produced on Earth.
+
+8
+00:00:21,200 --> 00:00:22,000
+You actually have to go
+
+9
+00:00:22,000 --> 00:00:23,480
+hotter than the sun. If your
+
+10
+00:00:23,480 --> 00:00:25,120
+company is trying to reduce
+
+11
+00:00:25,120 --> 00:00:26,560
+your environmental footprint
+
+12
+00:00:26,840 --> 00:00:28,240
+through using clean energy,
+
+13
+00:00:28,640 --> 00:00:30,000
+we have the solution for you.
+
+14
+00:00:30,400 --> 00:00:31,480
+Recent breakthroughs in
+
+15
+00:00:31,480 --> 00:00:32,960
+nuclear fusion research
+
+16
+00:00:32,960 --> 00:00:34,160
+revealed that adopting this
+
+17
+00:00:34,160 --> 00:00:35,720
+technology can reduce carbon
+
+18
+00:00:35,720 --> 00:00:37,720
+emissions by up to 70%,
+
+19
+00:00:38,240 --> 00:00:39,760
+making it a game changer for
+
+20
+00:00:39,760 --> 00:00:40,840
+companies committed to
+
+21
+00:00:40,880 --> 00:00:43,200
+sustainability. With hydrogen
+
+22
+00:00:43,240 --> 00:00:44,400
+as its only byproduct,
+
+23
+00:00:44,720 --> 00:00:46,320
+nuclear fusion offers a safe,
+
+24
+00:00:46,720 --> 00:00:49,120
+clean energy that aligns with
+
+25
+00:00:49,120 --> 00:00:50,800
+global trends towards greener
+
+26
+00:00:50,800 --> 00:00:52,880
+practices. You may wonder,
+
+27
+00:00:53,120 --> 00:00:54,560
+why not use nuclear fission?
+
+28
+00:00:54,960 --> 00:00:56,280
+Well, fusion doesn't create
+
+29
+00:00:56,280 --> 00:00:57,680
+long-lived radioactive waste
+
+30
+00:00:57,680 --> 00:00:59,200
+like fission does. It
+
+31
+00:00:59,200 --> 00:01:00,520
+replicates the process that
+
+32
+00:01:00,520 --> 00:01:02,200
+powers the sun, harnessing
+
+33
+00:01:02,200 --> 00:01:03,800
+the energy released on atomic
+
+34
+00:01:03,800 --> 00:01:06,240
+nuclear fuels. Thistechnology holds the
+
+35
+00:01:06,240 --> 00:01:07,520
+potential to generate 10
+
+36
+00:01:07,520 --> 00:01:08,720
+times the energy of fossil
+
+37
+00:01:08,720 --> 00:01:10,240
+fuels without harmful
+
+38
+00:01:10,240 --> 00:01:12,480
+emissions. Additionally,
+
+39
+00:01:12,920 --> 00:01:14,240
+unlike other clean energy
+
+40
+00:01:14,240 --> 00:01:15,760
+sources like solar and wind,
+
+41
+00:01:16,000 --> 00:01:17,120
+which can be limited by
+
+42
+00:01:17,120 --> 00:01:18,200
+weather conditions and
+
+43
+00:01:18,200 --> 00:01:19,520
+geographical constraints,
+
+44
+00:01:19,920 --> 00:01:21,560
+nuclear fusion offers a more
+
+45
+00:01:21,560 --> 00:01:22,640
+efficient and reliable
+
+46
+00:01:22,640 --> 00:01:24,400
+solution. This technology
+
+47
+00:01:24,400 --> 00:01:25,720
+provides a consistent and
+
+48
+00:01:25,720 --> 00:01:27,120
+high-output energy supply,
+
+49
+00:01:27,520 --> 00:01:28,880
+making it an ideal choice for
+
+50
+00:01:28,880 --> 00:01:30,160
+companies looking to power
+
+51
+00:01:30,160 --> 00:01:31,600
+critical IT infrastructure.
+
+52
+00:01:32,320 --> 00:01:33,760
+By transitioning to nuclear
+
+53
+00:01:33,760 --> 00:01:35,840
+fusion, business can achieve
+
+54
+00:01:35,840 --> 00:01:37,440
+greater energy efficiency and
+
+55
+00:01:37,440 --> 00:01:39,040
+reliability, while also
+
+56
+00:01:39,040 --> 00:01:40,120
+supporting environmental
+
+57
+00:01:40,120 --> 00:01:42,480
+sustainability. I'm working
+
+58
+00:01:42,560 --> 00:01:44,000
+in an industry that's doing
+
+59
+00:01:44,080 --> 00:01:46,440
+incredible things, that
+
+60
+00:01:46,480 --> 00:01:48,280
+offers the promise to
+
+61
+00:01:48,280 --> 00:01:50,400
+decarbonize countries and
+
+62
+00:01:50,400 --> 00:01:53,120
+industries for the future. In
+
+63
+00:01:53,120 --> 00:01:54,960
+the last decade, the number
+
+64
+00:01:54,960 --> 00:01:56,320
+of fusion-focused private
+
+65
+00:01:56,320 --> 00:01:57,680
+companies has rocketed,
+
+66
+00:01:58,400 --> 00:02:00,400
+growing to at least 42 around
+
+67
+00:02:00,400 --> 00:02:02,560
+the world and attracting more
+
+68
+00:02:02,560 --> 00:02:03,760
+than $6 billion in
+
+69
+00:02:03,760 --> 00:02:06,080
+investment. Commonwealth
+
+70
+00:02:06,080 --> 00:02:07,920
+Fusion Systems in America is
+
+71
+00:02:07,920 --> 00:02:10,600
+backed by Bill Gates, and
+
+72
+00:02:10,600 --> 00:02:12,000
+Jeff Bezos has invested in
+
+73
+00:02:12,000 --> 00:02:13,480
+General Fusion, which is
+
+74
+00:02:13,480 --> 00:02:14,640
+using a different kind of
+
+75
+00:02:14,640 --> 00:02:16,080
+reactor to a tokamak.
+
+76
+00:02:16,530 --> 00:02:18,212
+With visionary leaders like
+
+77
+00:02:18,212 --> 00:02:19,575
+them investing in nuclear
+
+78
+00:02:19,735 --> 00:02:21,578
+fusion technology, many
+
+79
+00:02:21,578 --> 00:02:23,021
+leading companies are already
+
+80
+00:02:23,021 --> 00:02:24,463
+exploring its benefits. Will
+
+81
+00:02:25,104 --> 00:02:26,547
+your company be next to join
+
+82
+00:02:26,547 --> 00:02:27,909
+this transformative movement?
+
+83
+00:02:29,683 --> 00:02:30,965
+We love to hear your thoughts
+
+84
+00:02:30,965 --> 00:02:32,888
+on energy innovation. Comment
+
+85
+00:02:32,888 --> 00:02:33,930
+below with your biggest
+
+86
+00:02:33,930 --> 00:02:35,172
+energy challenge and we'll
+
+87
+00:02:35,172 --> 00:02:36,775
+send you a free e-book on the
+
+88
+00:02:36,775 --> 00:02:38,137
+future of clean energy,
+
+89
+00:02:38,578 --> 00:02:40,060
+including how nuclear fusion
+
+90
+00:02:40,221 --> 00:02:41,663
+can benefit your industry.
