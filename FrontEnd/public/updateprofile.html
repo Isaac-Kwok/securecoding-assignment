@@ -9,6 +9,18 @@
 <link rel="stylesheet" href="css/listings.css">
 
 <script>
+    // Helper function to sanitize data by escaping special HTML characters
+    function sanitizeData(data) {
+        var element = document.createElement('div');
+        if (data) {
+            element.innerText = data;
+            element.textContent = data;
+        }
+        return element.innerHTML; // Returns sanitized string
+    }
+
+
+
     $(document).ready(function () {
         var userData = localStorage.getItem('userData');
         var userDataJson = JSON.parse(userData);
@@ -18,37 +30,47 @@
         var lastname = userDataJson[0].lastname;
         var id = userDataJson[0].id;
         var token = localStorage.getItem('token');
-        $('#profile').html(username);
-        $('#username').val(username);
-        $('#email').val(email);
-        $('#firstname').val(firstname);
-        $('#lastname').val(lastname);
+
+        // Sanitize and display data safely
+        $('#profile').html(sanitizeData(username));
+        $('#username').val(sanitizeData(username));
+        $('#email').val(sanitizeData(email));
+        $('#firstname').val(sanitizeData(firstname));
+        $('#lastname').val(sanitizeData(lastname));
 
 
         $('#sumbit').click(function () {
             var username = $('#username').val();
             var firstname = $('#firstname').val();
             var lastname = $('#lastname').val();
-            var data = `{"username":"${username}","firstname":"${firstname}","lastname":"${lastname}"}`
+
+             // Sanitize inputs before sending to backend
+            var sanitizedUsername = sanitizeData(username);
+            var sanitizedFirstname = sanitizeData(firstname);
+            var sanitizedLastname = sanitizeData(lastname);
+
+            var data = `{"username":"${sanitizedUsername}","firstname":"${sanitizedFirstname}","lastname":"${sanitizedLastname}"}`
             $.ajax({
                 headers: { "authorization": "Bearer " + token },
-                url: "http://localhost:8081/user/update/",//supply the api url
-                type: "PUT",///supply the method
-                data: data,//supply the data to the back-end(like PostMAN body but sending it in raw json format)
-                contentType: "application/json",//standard
+                url: "http://localhost:8081/user/update/", // Supply the API URL
+                type: "PUT", // Supply the method
+                data: data, // Send sanitized data to backend
+                contentType: "application/json", // Standard
                 dataType: "json",
-                success: function (data, textStatus, xhr) {//retrieve some data back from server
+                success: function (data, textStatus, xhr) { // Retrieve some data back from server
                     if (data.success) {
                         window.alert("Successfully updated profile information");
                         window.location.assign("http://localhost:3001/viewprofile.html");
-                        newUserData = `[{"username":"${username}","firstname":"${firstname}","lastname":"${lastname}","email":"${email}","id":${id}}]`
-                        localStorage.setItem('userData',newUserData)
+                        newUserData = `[{"username":"${sanitizedUsername}","firstname":"${sanitizedFirstname}","lastname":"${sanitizedLastname}","email":"${email}","id":${id}}]`
+                        localStorage.setItem('userData', newUserData);
                     } else {
-                        window.alert("Unsuccessfully updated profile information")
+                        window.alert("Unsuccessfully updated profile information");
                     }
                 }, error(xhr, textStatus, err) {
                     console.log(err)
-                    window.alert("Error")
+                    console.log(xhr)
+                    console.log("Error",textStatus)
+                    window.alert(xhr.responseText)
                 }
             });
             return false;

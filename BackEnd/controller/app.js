@@ -17,12 +17,53 @@ var multer = require('multer')
 
 var cors = require('cors');//Just use(security feature)
 
+const validator = require('validator');
+
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.options('*', cors());//Just use
 app.use(cors());//Just use
 app.use(bodyParser.json());
 app.use(urlencodedParser);
+
+// Sanitization middleware
+function sanitizeInput(req, res, next) {
+    try {
+		console.log("sanitizing input")
+console.log(req.body)
+
+        // Sanitize user inputs (username, firstname, lastname)
+        req.body.username = validator.trim(req.body.username);  // Trim leading/trailing spaces
+        req.body.firstname = validator.trim(req.body.firstname);
+        req.body.lastname = validator.trim(req.body.lastname);
+
+        req.body.username = validator.escape(req.body.username); // Escape any special characters
+        req.body.firstname = validator.escape(req.body.firstname);
+        req.body.lastname = validator.escape(req.body.lastname);
+
+        // Proceed to the next middleware or route handler
+        next();
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Input sanitization failed', error: err });
+    }
+}
+
+// Function to sanitize output data before sending it to the client
+function sanitizeOutput(data) {
+    if (Array.isArray(data)) {
+        return data.map(item => sanitizeOutput(item));
+    } else if (typeof data === 'object' && data !== null) {
+        let sanitizedObject = {};
+        for (let key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+                sanitizedObject[key] = validator.escape(String(data[key])); // Escape HTML characters
+            }
+        }
+        return sanitizedObject;
+    } else {
+        return validator.escape(String(data)); // Fallback for primitive values
+    }
+}
 
 //User APIs
 app.post('/user/login', function (req, res) {//Login
@@ -70,21 +111,23 @@ app.post('/user/logout', function (req, res) {//Logout
 });
 
 
-app.put('/user/update/', verifyToken, function (req, res) {//Update user info
-	var id = req.id
-	var username = req.body.username;
-	var firstname = req.body.firstname;
-	var lastname = req.body.lastname;
-	user.updateUser(username, firstname, lastname, id, function (err, result) {
-		if (err) {
-			res.status(500);
-			res.json({ success: false })
-		} else {
-			res.status(200);
-			res.setHeader('Content-Type', 'application/json');
-			res.json({ success: true })
-		}
-	});
+// Apply sanitization middleware to the update user route
+app.put('/user/update/', verifyToken, sanitizeInput, function (req, res) {
+console.log("update user")
+console.log(req.body)
+
+    var id = req.id;
+    var username = req.body.username;
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    
+    user.updateUser(username, firstname, lastname, id, function (err, result) {
+        if (err) {
+            res.status(500).json({ success: false });
+        } else {
+            res.status(200).json({ success: true });
+        }
+    });
 });
 
 //Listing APIs
@@ -137,6 +180,7 @@ app.get('/listing/:id', function (req, res) {//View a listing
 });
 
 app.get('/search/:query', verifyToken, function (req, res) {//View all other user's listing that matches the search
+	console.log("qeury: " +req.params.query)
 	var query = req.params.query;
 	var userid = req.id;
 	listing.getOtherUsersListings(query, userid, function (err, result) {
@@ -146,7 +190,7 @@ app.get('/search/:query', verifyToken, function (req, res) {//View all other use
 		} else {
 			res.status(200);
 			res.setHeader('Content-Type', 'application/json');
-			res.json({ success: true, result: result })
+			res.json({ success: true, result: sanitizeOutput(result) })
 		}
 	});
 });
