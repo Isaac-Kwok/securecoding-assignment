@@ -115,26 +115,28 @@ var listingDB = {
 
         })
     },
-    deleteListing: function (id, callback) {
+    deleteListing: function (listingId, userId, callback) {
         var conn = db.getConnection();
+        
         conn.connect(function (err) {
             if (err) {
-                console.log(err);
+                console.error("Database connection error:", err);
                 return callback(err, null);
-            } else {
-                var sql = `delete from listings where id=${id}`;
-                conn.query(sql, [], function (err, result) {
-                    conn.end()
-                    if (err) {
-                        console.log(err);
-                        return callback(err, null);
-                    } else {
-                        return callback(null, result)
-                    }
-                });
             }
-
-        })
+    
+            var sql = `DELETE FROM listings WHERE id = ? AND fk_poster_id = ?`; // Ensure user can only delete their own listing
+    
+            conn.query(sql, [listingId, userId], function (err, result) {
+                conn.end();
+    
+                if (err) {
+                    console.error("Error executing delete query:", err);
+                    return callback(err, null);
+                }
+    
+                return callback(null, result);
+            });
+        });
     },
 }
 

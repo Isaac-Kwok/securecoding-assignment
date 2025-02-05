@@ -258,20 +258,33 @@ console.log("update listing")
 	});
 });
 
-app.delete('/listing/delete/', function (req, res) {//View a listing
-	var id = req.body.id;
+app.delete('/listing/delete/', verifyToken, function (req, res) {
+    console.log("Incoming delete request...");
 
-	listing.deleteListing(id, function (err, result) {
-		if (err) {
-			res.status(500);
-			res.json({ success: false })
-		} else {
-			res.status(200);
-			res.setHeader('Content-Type', 'application/json');
-			res.json({ success: true })
-		}
-	});
+    const listingId = req.body.id;
+    const userId = req.id; // Retrieved from verifyToken middleware
+
+    if (!listingId) {
+        return res.status(400).json({ success: false, message: "Listing ID is required" });
+    }
+
+    console.log(`User ${userId} attempting to delete listing ${listingId}`);
+
+    listing.deleteListing(listingId, userId, function (err, result) {
+        if (err) {
+            console.error("Error deleting listing:", err);
+            return res.status(500).json({ success: false, message: "Database error" });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(403).json({ success: false, message: "Unauthorized: Cannot delete this listing" });
+        }
+
+        console.log(`Listing ${listingId} successfully deleted by user ${userId}`);
+        res.status(200).json({ success: true, message: "Listing deleted successfully" });
+    });
 });
+
 
 //Offers API
 app.post('/offer/', verifyToken, function (req, res) {//View a listing
