@@ -49,28 +49,32 @@ var offerDB = {
             }
         })
     },
-    AcceptOrRejectOffer: function (status,offerid, callback) {
+    AcceptOrRejectOffer: function (status, offerid, callback) {
         var conn = db.getConnection();
 
+        if (!Number.isInteger(offerid)) {
+            return callback(new Error("Invalid offer ID"), null);
+        }        
+    
         conn.connect(function (err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
             }
             else {
-                var sql = `update offers set status = ? where id = ${offerid};`;
-                conn.query(sql, [status], function (err, result) {
+                var sql = `UPDATE offers SET status = ? WHERE id = ?;`;  // Parameterized query
+                conn.query(sql, [status, offerid], function (err, result) {
                     conn.end();
                     if (err) {
                         console.log("Err: " + err);
                         return callback(err, null);
                     } else {
-                        return callback(null, result)
+                        return callback(null, result);
                     }
-                })
-
+                });
+    
             }
-        })
+        });
     },
     getOfferStatus: function (userid, callback) {
         var conn = db.getConnection();

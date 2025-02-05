@@ -261,7 +261,8 @@ app.get('/offer/', verifyToken, function (req, res) {//View all offers
 	});
 });
 
-app.post('/offer/decision/', function (req, res) {//View all offers
+
+app.post('/offer/decision/', verifyToken, function (req, res) {//View all offers
 	var status = req.body.status;
 	var offerid = req.body.offerid;
 	offers.AcceptOrRejectOffer(status, offerid, function (err, result) {
