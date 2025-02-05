@@ -9,15 +9,21 @@ var offers = require('../model/offer');
 var likes = require('../model/likes');
 var images = require('../model/images')
 var verifyToken = require('../auth/verifyToken.js');
+////////////////////////////////////////////
+// Importing Libraries ////////////////////
 var fs = require('fs');
 const fileType = require('file-type');
-
+var cors = require('cors');//Just use(security feature)
 var path = require("path");
 var multer = require('multer')
 
-var cors = require('cors');//Just use(security feature)
+const validator = require('validator'); // Import validator library for sanitization
 
-const validator = require('validator');
+var morgan = require('morgan'); // Import morgan logging library
+var rfs = require('rotating-file-stream'); // Import rotating-file-stream
+var path = require('path'); // Import path module
+// Importing Libraries ////////////////////
+///////////////////////////////////////////
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -26,27 +32,62 @@ app.use(cors());//Just use
 app.use(bodyParser.json());
 app.use(urlencodedParser);
 
+
+// Create a rotating write stream
+var logDirectory = path.join(__dirname, '../log'); // Path to the log directory
+var appLogStream = rfs.createStream('access.log', {
+    interval: '12h', // Rotate every 12 hours
+    path: logDirectory // Write to the log subdirectory in the main project folder
+});
+
+// Define custom morgan token to log exceptions
+morgan.token('exception', function (req, res) {
+    return res.locals.errorMessage || '-'; // Return error message if exists, else '-'
+});
+
+morgan.token('json', function (req, res) {
+    const filteredBody = { ...req.body };
+    if (filteredBody.password) filteredBody.password = '******'; // ✅ Mask password
+    if (filteredBody.token) filteredBody.token = '******';       // ✅ Mask tokens
+
+    return JSON.stringify({
+        exception: res.locals.errorMessage || '-',
+        method: req.method,
+        url: req.originalUrl,
+        ip: req.ip,
+        body: filteredBody,
+        date: new Date().toUTCString()
+    });
+});
+
+
+// Use Morgan with the custom JSON format
+app.use(morgan(':json', { stream: appLogStream }));
+
+
 // Sanitization middleware
 function sanitizeInput(req, res, next) {
     try {
-		console.log("sanitizing input")
-console.log(req.body)
+        console.log("Sanitizing input...");
+        console.log("Before:", req.body);
 
-        // Sanitize user inputs (username, firstname, lastname)
-        req.body.username = validator.trim(req.body.username);  // Trim leading/trailing spaces
-        req.body.firstname = validator.trim(req.body.firstname);
-        req.body.lastname = validator.trim(req.body.lastname);
+        if (req.body && typeof req.body === 'object') {
+            Object.keys(req.body).forEach((key) => {
+                if (typeof req.body[key] === 'string') {
+                    req.body[key] = validator.trim(req.body[key]);   // Trim spaces
+                    req.body[key] = validator.escape(req.body[key]); // Escape special characters
+                }
+            });
+        }
 
-        req.body.username = validator.escape(req.body.username); // Escape any special characters
-        req.body.firstname = validator.escape(req.body.firstname);
-        req.body.lastname = validator.escape(req.body.lastname);
+        console.log("After:", req.body);
 
-        // Proceed to the next middleware or route handler
         next();
     } catch (err) {
         res.status(500).json({ success: false, message: 'Input sanitization failed', error: err });
     }
 }
+
 
 // Function to sanitize output data before sending it to the client
 function sanitizeOutput(data) {
@@ -160,7 +201,7 @@ app.get('/user/listing', verifyToken, function (req, res) {//Get all Listings of
 		} else {
 			res.status(200);
 			res.setHeader('Content-Type', 'application/json');
-			res.json({ success: true, result: result });
+			res.json({ success: true, result: sanitizeOutput(result) });
 		}
 	});
 });
@@ -174,7 +215,7 @@ app.get('/listing/:id', function (req, res) {//View a listing
 		} else {
 			res.status(200);
 			res.setHeader('Content-Type', 'application/json');
-			res.json({ success: true, result: result })
+			res.json({ success: true, result: sanitizeOutput(result) })
 		}
 	});
 });
@@ -195,14 +236,18 @@ app.get('/search/:query', verifyToken, function (req, res) {//View all other use
 	});
 });
 
-app.put('/listing/update/', function (req, res) {//View a listing
+app.put('/listing/update/', sanitizeInput, function (req, res) {//View a listing
 	var title = req.body.title;
 	var category = req.body.category;
 	var description = req.body.description;
 	var price = req.body.price;
 	var id = req.body.id;
+console.log("update listing")
+
 	listing.updateListing(title, category, description, price, id, function (err, result) {
 		if (err) {
+			console.log("err"+err)
+			res.locals.errorMessage = err.message || 'Database error';  // ✅ Store error for Morgan
 			res.status(500);
 			res.json({ success: false })
 		} else {
@@ -265,8 +310,10 @@ app.get('/offer/', verifyToken, function (req, res) {//View all offers
 app.post('/offer/decision/', verifyToken, function (req, res) {//View all offers
 	var status = req.body.status;
 	var offerid = req.body.offerid;
+	console.log("status: "+status)
 	offers.AcceptOrRejectOffer(status, offerid, function (err, result) {
 		if (err) {
+			console.log("err: "+err)
 			res.status(500);
 			res.json({ success: false })
 		} else {
