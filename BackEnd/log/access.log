@@ -1238,3 +1238,4 @@
 {"exception":"-","method":"GET","url":"/vlads+-1581252198429.png","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
 {"exception":"-","method":"GET","url":"/Air-Jordan-1-Retro-Low-Travis-Scott-Product-1581251985871.jpg","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
 {"exception":"-","method":"GET","url":"/vlad-1581252129491.png","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"POST","url":"/user","ip":"::1","body":{"username":"john_yoe","email":"john.yoe@example.com","password":"******","firstname":"dog","lastname":"dogg"},"date":"Sun, 09 Feb 2025 14:32:30 GMT"}
