@@ -1230,3 +1230,11 @@
 {"exception":"-","method":"POST","url":"/user/login","ip":"::1","body":{"email":"xios@gmail.com","password":"******"},"date":"Sun, 09 Feb 2025 14:22:55 GMT"}
 {"exception":"-","method":"POST","url":"/user/login","ip":"::1","body":{"email":"xios@gmail.com","password":"******"},"date":"Sun, 09 Feb 2025 14:23:51 GMT"}
 {"exception":"-","method":"POST","url":"/user","ip":"::1","body":{"username":"john_noe","email":"john.noe@example.com","password":"******","firstname":"dog","lastname":"dogg"},"date":"Sun, 09 Feb 2025 14:29:28 GMT"}
+{"exception":"-","method":"POST","url":"/user","ip":"::1","body":{"username":"john_noe","email":"john.noe@example.com","password":"******","firstname":"dog","lastname":"dogg"},"date":"Sun, 09 Feb 2025 14:30:26 GMT"}
+{"exception":"-","method":"POST","url":"/user/login","ip":"::1","body":{"email":"xios@gmail.com","password":"******"},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"GET","url":"/user/listing/","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"GET","url":"/jordan-1-high-'85-1581251792615.jpg","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"GET","url":"/OffWhiteXAirMax90-1581252083619.jfif","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"GET","url":"/vlads+-1581252198429.png","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"GET","url":"/Air-Jordan-1-Retro-Low-Travis-Scott-Product-1581251985871.jpg","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
+{"exception":"-","method":"GET","url":"/vlad-1581252129491.png","ip":"::1","body":{},"date":"Sun, 09 Feb 2025 14:30:57 GMT"}
