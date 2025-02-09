@@ -9,6 +9,8 @@ var offers = require('../model/offer');
 var likes = require('../model/likes');
 var images = require('../model/images')
 var verifyToken = require('../auth/verifyToken.js');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 ////////////////////////////////////////////
 // Importing Libraries ////////////////////
 var fs = require('fs');
@@ -124,22 +126,29 @@ app.post('/user/login', function (req, res) {//Login
 	});
 });
 
-app.post('/user', function (req, res) {//Create User
+app.post('/user', function (req, res) { // Create User
 	var username = req.body.username;
 	var email = req.body.email;
 	var password = req.body.password;
-	var profile_pic_url = req.body.profile_pic_url
-	var role = req.body.role
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
 
-	user.addUser(username, email, password, profile_pic_url, role, function (err, result) {
+	// Hash the password before saving it
+	bcrypt.hash(password, saltRounds, function (err, hashedPassword) {
 		if (err) {
-			res.status(500);
-			res.send(err);
-		} else {
-			res.status(201);
-			res.setHeader('Content-Type', 'application/json');
-			res.send(result);
+			console.error("Error hashing password:", err);
+			res.status(500).send({ error: "Internal Server Error" });
+			return;
 		}
+
+		// Store hashed password instead of plain text
+		user.addUser(username, email, hashedPassword, firstname, lastname, function (err, result) {
+			if (err) {
+				res.status(500).send(err);
+			} else {
+				res.status(201).json(result);
+			}
+		});
 	});
 });
 
